@@ -22,6 +22,7 @@ public class Categoria implements Serializable {
 
     //Atruibuições
 
+//O optional é um objeto container que carrega um  objeto do tipo que informarmos encapsula se o objeto está instanciado ou não 
     
     public Categoria() {
     }
