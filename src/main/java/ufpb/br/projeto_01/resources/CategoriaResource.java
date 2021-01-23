@@ -1,8 +1,5 @@
 package ufpb.br.projeto_01.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +25,7 @@ public class CategoriaResource {
     public ResponseEntity<?> find(@PathVariable Integer id) {
         Categoria obj = service.buscar(id);
         //O ResponseEntity é um objeto do spring que encapsula vários informações de uma resposta HTTP para um srerviço rest
-        //Coloco a interrogação porque pode ser qualquer tipo
-        Categoria cat1 = new Categoria(1, "Informática");
-        Categoria cat2 = new Categoria(2, "Escritório");
-       
-        List<Categoria> lista = new ArrayList<>();
-        lista.add(cat1);
-        lista.add(cat2);
-       
+        //Coloco a interrogação porque pode ser qualquer tipo       
         //Uma forma de falar que essa resposta ocorreu tudo bem é colocar o método ok
         // Essa resposta vai ter como corpo o objeto obj que busquei, que é a categoria 
         return ResponseEntity.ok().body(obj);

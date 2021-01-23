@@ -1,49 +1,41 @@
 package ufpb.br.projeto_01.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-//Essa classe vai ser um aentidade do jpa
+
 @Entity
-public class Categoria implements Serializable {
+public class Cidade implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // atribuitos da classe
 
-    // Estou definindo a estrtégia de geração automática dos meus ids
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 
-    // Inicie as coleções
-    //@JsonManagedReference TRocamos pq deu erro 
-    //Esse JsonManagedReference diz que ta tudo bem serializar
-    //Fazemos isso no lado que queremos que venha a associação
-    @ManyToMany(mappedBy = "categorias")
-    //Vou falar que esse mapeamento é o outro lado de um mapeamento em cima de categorias
-    private List<Produto> produtos = new ArrayList<>();
-    //Atruibuições
-
-//O optional é um objeto container que carrega um  objeto do tipo que informarmos encapsula se o objeto está instanciado ou não 
+    //Serializa o estado
+    //Associações : Várias cidades possuem um estado - Muitos para um (muitas cidades para um estado) 
+    @ManyToOne
+    @JoinColumn(name="estado_id")
+    private Estado estado;
     
-    public Categoria() {
+    public Cidade(){
+
     }
 
-    public Categoria(Integer id, String nome) {
+    public Cidade(Integer id, String nome, Estado estado) {
+        super();
         this.id = id;
         this.nome = nome;
+        this.estado = estado;
     }
-
-
-    //get e sets
 
     public Integer getId() {
         return id;
@@ -60,17 +52,14 @@ public class Categoria implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    
-    public List<Produto> getProdutos() {
-        return produtos;
+
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
-
-        //hashcode e equals para compatrar os objetos por valor 
 
     @Override
     public int hashCode() {
@@ -88,7 +77,7 @@ public class Categoria implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Categoria other = (Categoria) obj;
+        Cidade other = (Cidade) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -96,9 +85,6 @@ public class Categoria implements Serializable {
             return false;
         return true;
     }
-
-
-    
 
     
 }
